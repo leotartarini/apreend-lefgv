@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <style>
+      .form {
+  display: flex;
+  flex-direction: column;
+  margin: 30px 0 0 0;
+  min-width: 250px;
+  text-align: center;
+  justify-content: center;
+}
+
+.title {
+  font-family: lato;
+}
+
+textarea {
+  height: 120px;
+  border-radius: 16px;
+  border: none;
+  border-color: transparent;
+  outline: none;
+  padding: 20px 20px 20px 30px;
+  box-shadow: 0 0 50px 0 rgb(0 0 0 / 10%);
+  margin-bottom: 10px;
+  font-family: lato;
+  font-size: 20px;
+  resize: none;
+  
+}
+
+body {
+  margin: 0;
+  padding: 0 20px;
+  background-color: #F0F2F5;
+}
+
+.container {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.button {
+    margin-bottom: 30px;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 30px;
+    background-color: #000000!important;
+    font-weight: bolder;
+    font-size: 20px;
+    color: white;
+    font-family: lato;
+    outline: none;
+}
+
+        .button:hover {
+                cursor: pointer;
+              }
+
+        .Posted {
+          background-color: white;
+          border-radius: 16px;
+          border: none;
+          border-color: transparent;
+          outline: none;
+          padding: 20px 20px 20px 30px;
+          box-shadow: 0 0 50px 0 rgb(0 0 0 / 10%);
+          margin: 20px 0;
+          font-family: lato;
+          font-size: 20px;
+          resize: none;
+        }
+
+        .End {
+          text-align: center;
+          font-family: lato;
+          margin: 40px 0 100px 0;
+          font-size: 18px;
+        }
+
+        @media (max-width: 600px) {
+          .Posted {
+            font-size: 16px;
+          }
+          
+          textarea {
+            font-size: 16px;
+            height: 30vh;
+          }
+        }
+    </style>
+  </head>
+  <body>
+    <div class='container'>
+      <form action="https://script.google.com/macros/s/AKfycbySntNNP1w7dGuSQd4ex6PB9ARDHzM0GaYeB5sLlkU0mztC8LMOpRdPDVx8jVuTe4rb/exec"
+        method="post"
+        enctype="multipart/form-data"
+        autocomplete="off"
+        class='form'>
+          <h1 class='title'>☕ Public Feed</h1>
+          <textarea type="text" maxlength="280" placeholder='O que você está pensando?' name="Post" id="Post"></textarea>
+          <br />
+          <input type="submit" name="submit" value="Postar" class='button'>
+      </form>
+      <hr />
+      <div id='postsContainer'></div>
+      <div class='End'>
+         <p>Parece que você já chegou no fim... 😄</p>
+      </div>
+    </div>
+
+
+<script>
+
+  document.addEventListener("DOMContentLoaded", function() {
+
+    google.script.run.withSuccessHandler(generatePosts).getPostsData();
+
+  });
+
+  function generatePosts(dataArray) {
+      var Body = document.getElementById("postsContainer"); 
+
+      dataArray.slice().reverse().forEach(function(p) {
+        var PostBlock = document.createElement('div');
+        var Post = document.createElement('p');
+        Post.textContent = p[0];
+        PostBlock.appendChild(Post);
+        PostBlock.classList.add("Posted");
+        Body.appendChild(PostBlock);
+      })
+
+  }
+  
+</script>
+  </body>
+</html>
